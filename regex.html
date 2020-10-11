@@ -41,14 +41,22 @@
       <textarea id="text-input" rows="10"></textarea>
     </div>
     <button onclick="main()">Test</button>
-    <pre>
+    <pre id="output">
       Hello World
     </pre>
     <script>
       function output(str, regex, target) {
-        target.innerHTML = str.replace(regex, function (m) {
-          return "<span>" + m + "</span>";
+      
+
+        str = str.replace(regex, function (m) {
+          return "{{start}}" + m + "{{end}}";
         });
+        str = str.replace(/>/g,"&gt;")
+        str = str.replace(/</g,"&lt;")
+        str = str.replace(/{{start}}/g,"<span>")
+        str = str.replace(/{{end}}/g,"</span>")
+        target.innerHTML = str;
+
       }
       function main() {
         const regexVal = document.getElementById("regex-input").value;
@@ -56,7 +64,7 @@
         const regex = new RegExp(regexVal, regexFlag);
         const str = document.getElementById("text-input").value;
         console.log(regex, str);
-        output(str, regex, document.querySelector("pre"));
+        output(str, regex, document.querySelector("#output"));
       }
     </script>
   </body>
