@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regex Explorer</title>
+    <style>
+      body {
+        width: 80%;
+        margin: auto;
+        padding: 10px;
+      }
+      pre {
+        background-color: #fafafa;
+        color: #999;
+        line-height: 2;
+        white-space: pre-wrap;
+      }
+
+      span {
+        color: black;
+        outline: 1px solid black;
+      }
+
+      textarea {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Regex Explorer</h1>
+    <div>v.0.0.1</div>
+    <br>
+    <div>
+      Regex : / <input type="text" id="regex-input" style="width: 400px;" /> /
+      <input type="text" id="regex-input-flag" value="gi"/>
+    </div>
+    <br />
+    <div>
+      <textarea id="text-input" rows="10"></textarea>
+    </div>
+    <button onclick="main()">Test</button>
+    <pre>
+      Hello World
+    </pre>
+    <script>
+      function output(str, regex, target) {
+        target.innerHTML = str.replace(regex, function (m) {
+          return "<span>" + m + "</span>";
+        });
+      }
+      function main() {
+        const regexVal = document.getElementById("regex-input").value;
+        const regexFlag = document.getElementById("regex-input-flag").value;
+        const regex = new RegExp(regexVal, regexFlag);
+        const str = document.getElementById("text-input").value;
+        console.log(regex, str);
+        output(str, regex, document.querySelector("pre"));
+      }
+    </script>
+  </body>
+</html>
